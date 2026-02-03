@@ -40,9 +40,7 @@ class PushSender:
         """
         provider = push_provider_registry.get_provider(type_)
         
-        # Transform payload specifically for push (e.g. remove huge fields)
         final_payload = provider.transform_payload_for_push(raw_payload)
-        # Get localized text based on the transformed payload
         push_msg = provider.get_push_text_data(language_code, final_payload)
             
         return push_msg, final_payload
@@ -57,18 +55,14 @@ class PushSender:
         """
         Sends a push notification to a specific device.
         """
-        # Get dict with timestamp (created fresh, so we can modify it)
         payload_dict = payload.to_push_payload_dict()
         
-        # We need to process the payload through the provider (e.g. to strip heavy data)
-        # and get the localized message texts.
         push_msg, push_specific_payload = cls._prepare_push_content(
             type_=payload.type,
             raw_payload=payload_dict["payload"],
             language_code=language_code
         )
 
-        # Update the payload in place with the transformed version
         payload_dict["payload"] = push_specific_payload
         
         data_for_push = {"data": json.dumps(payload_dict, default=str)}
@@ -145,7 +139,6 @@ class PushSender:
         """
         Asynchronously sends a push notification to a specific device.
         """
-        # Get dict with timestamp (created fresh, so we can modify it)
         payload_dict = payload.to_push_payload_dict()
         
         push_msg, push_specific_payload = cls._prepare_push_content(
@@ -154,7 +147,6 @@ class PushSender:
             language_code=language_code
         )
 
-        # Update the payload in place with the transformed version
         payload_dict["payload"] = push_specific_payload
 
         data_for_push = {"data": json.dumps(payload_dict, default=str)}

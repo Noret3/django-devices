@@ -7,7 +7,7 @@ DEFAULTS = {
     "FCM_DEVICE_MODEL": "django_devices.CustomFCMDevice",
     "DEVICE_SETTINGS_MODEL": "django_devices.UserDeviceSettings",
     "NOTIFICATION_MODEL": "django_devices.Notification",
-    "NOTIFICATION_TYPE_CHOICES": "django_devices.choices.DefaultNotificationTypeChoices",
+    "NOTIFICATION_TYPE_CHOICES": None,
     "DEFAULT_FIREBASE_APP": None,
     "DEVICE_ID_HEADER": "X-DEVICE-ID",
 }
@@ -36,10 +36,15 @@ class DeviceSettings:
             raise AttributeError(f"Invalid setting: '{attr}'")
 
         try:
-
             val = self.user_settings[attr]
         except KeyError:
             val = self.defaults[attr]
+
+        if val is None and attr == "NOTIFICATION_TYPE_CHOICES":
+             from django.core.exceptions import ImproperlyConfigured
+             raise ImproperlyConfigured(
+                 f"The setting 'DEVICES_SETTINGS[\"NOTIFICATION_TYPE_CHOICES\"]' is required."
+             )
 
         if attr in self.import_strings and isinstance(val, str):
             val = self.perform_import(val, attr)
