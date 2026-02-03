@@ -1,0 +1,45 @@
+[project]
+name = "django-devices"
+version = "0.1.0"
+description = "A Django app for managing devices and sending push notifications via FCM/APNS."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Luchko Maksym", email = "maxym.mlyc@gmail.com" }
+]
+classifiers = [
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "django>=4.2",
+    "fcm-django>=2.0.0",
+    "pydantic>=2.0.0",
+    "firebase-admin>=6.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Noret3/django-devices"
+Repository = "https://github.com/Noret3/django-devices"
+Issues = "https://github.com/Noret3/django-devices/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["django_devices"]
+
+[dependency-groups]
+dev = [
+    "black>=24.0.0",
+    "ruff>=0.3.0",
+]
