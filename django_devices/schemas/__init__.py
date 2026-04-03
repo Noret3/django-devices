@@ -1,5 +1,5 @@
-from .pydantic import CreateDeviceSchema, BaseUpdateDeviceSettingsSchema, BaseDeviceSchema
-from .protocols import CreateDeviceProtocol, UpdateDeviceSettingsProtocol, DeviceDataProtocol
+from .devices.pydantic import CreateDeviceSchema, BaseUpdateDeviceSettingsSchema, BaseDeviceSchema
+from .devices.protocols import CreateDeviceProtocol, UpdateDeviceSettingsProtocol, DeviceDataProtocol
 
 __all__ = [
     "CreateDeviceSchema",
